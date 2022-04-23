@@ -2,5 +2,4 @@
 .project
 .settings
 target
-/selenium/bin/Firefox.app
-/selenium/bin/FirefoxPortable
+/.idea
