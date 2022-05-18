@@ -3,11 +3,11 @@ package spending.model;
 import java.util.Objects;
 
 public class Payment {
-    private final float price;
+    private final int price;
     private final String description;
     private final Category category;
 
-    public Payment(float price, String description, Category category) {
+    public Payment(int price, String description, Category category) {
         this.price = price;
         this.description = description;
         this.category = category;

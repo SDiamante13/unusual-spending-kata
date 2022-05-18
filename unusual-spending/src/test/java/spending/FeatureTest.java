@@ -12,10 +12,11 @@ import static org.mockito.Mockito.*;
 
 class FeatureTest {
 
-    private static final long USER_ID = 123L;
-    private static final String SUBJECT = "Unusual spending of $148 detected!";
-    private static final int THIS_MONTH = Month.MAY.getValue();
-    private static final int CURRENT_YEAR = 2022;
+    public static final long USER_ID = 123L;
+    public static final String SUBJECT = "Unusual spending of $148 detected!";
+    public static final int THIS_MONTH = Month.MAY.getValue();
+    public static final int LAST_MONTH = Month.APRIL.getValue();
+    public static final int CURRENT_YEAR = 2022;
 
     private final PaymentService mockPaymentService = mock(PaymentService.class);
     private final EmailService mockEmailService = mock(EmailService.class);
@@ -35,11 +36,11 @@ class FeatureTest {
                 "The Credit Card Company";
         when(mockPaymentService.fetchPayments(USER_ID, CURRENT_YEAR, THIS_MONTH))
                 .thenReturn(new HashSet<>(
-                        singletonList(new Payment(200.00f, "Food for yet another month", Category.GROCERIES))
+                        singletonList(new Payment(200, "Food for yet another month", Category.GROCERIES))
                 ));
-        when(mockPaymentService.fetchPayments(USER_ID, CURRENT_YEAR, THIS_MONTH))
+        when(mockPaymentService.fetchPayments(USER_ID, CURRENT_YEAR, LAST_MONTH))
                 .thenReturn(new HashSet<>(
-                        singletonList(new Payment(50.00f, "Food for month", Category.GROCERIES))
+                        singletonList(new Payment(50, "Food for month", Category.GROCERIES))
                 ));
 
         triggersUnusualSpendingEmail.trigger(USER_ID);

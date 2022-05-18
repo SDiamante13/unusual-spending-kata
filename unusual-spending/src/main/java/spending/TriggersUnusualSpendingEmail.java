@@ -22,5 +22,7 @@ public class TriggersUnusualSpendingEmail {
 // fetch the payments for the current month and the previous month
 // Compare the total amount paid for each month,
 // grouped by category; filter down to the categories for which the user spent at least 50% more this month than last month
+// detectUnusualPayments returns Set<UnusualPayment> which represents the categories and total amounts.
+// need method to take Set<UnusualPayment> and construct email body - EmailFormatter.formatBody(Set<UnusualSpending>)
 // Compose an e-mail message to the user that lists the categories for which spending was unusually high, with a
 // subject like "Unusual spending of $1076 detected!"
