@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import spending.model.Category;
 import spending.model.Payment;
 
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.HashSet;
 
@@ -14,13 +15,15 @@ class FeatureTest {
 
     public static final long USER_ID = 123L;
     public static final String SUBJECT = "Unusual spending of $148 detected!";
-    public static final int THIS_MONTH = Month.MAY.getValue();
-    public static final int LAST_MONTH = Month.APRIL.getValue();
+    public static final int THIS_MONTH = Month.FEBRUARY.getValue();
+    public static final int LAST_MONTH = Month.JANUARY.getValue();
     public static final int CURRENT_YEAR = 2022;
 
+    private final Moment mockMoment = mock(Moment.class);
     private final PaymentService mockPaymentService = mock(PaymentService.class);
     private final EmailService mockEmailService = mock(EmailService.class);
-    TriggersUnusualSpendingEmail triggersUnusualSpendingEmail = new TriggersUnusualSpendingEmail(mockPaymentService, mockEmailService);
+    TriggersUnusualSpendingEmail triggersUnusualSpendingEmail =
+            new TriggersUnusualSpendingEmail(mockMoment, mockPaymentService, new Detector(), new SpendingCalculator(), new EmailFormatter(), mockEmailService);
 
 
     @Test
@@ -34,6 +37,8 @@ class FeatureTest {
                 "Love,\n" +
                 "\n" +
                 "The Credit Card Company";
+        when(mockMoment.now())
+                .thenReturn(LocalDate.of(2022, Month.FEBRUARY, 1));
         when(mockPaymentService.fetchPayments(USER_ID, CURRENT_YEAR, THIS_MONTH))
                 .thenReturn(new HashSet<>(
                         singletonList(new Payment(200, "Food for yet another month", Category.GROCERIES))

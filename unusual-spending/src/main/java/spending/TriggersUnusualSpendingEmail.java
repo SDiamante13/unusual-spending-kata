@@ -1,18 +1,38 @@
 package spending;
 
+import spending.model.Payment;
+import spending.model.UnusualPayment;
+
+import java.time.LocalDate;
+import java.util.Set;
+
 public class TriggersUnusualSpendingEmail {
 
-	private final PaymentService paymentService;
-	private final EmailService emailService;
+    private final Moment moment;
+    private final PaymentService paymentService;
+    private final Detector detector;
+    private final SpendingCalculator spendingCalculator;
+    private final EmailFormatter emailFormatter;
+    private final EmailService emailService;
 
-	public TriggersUnusualSpendingEmail(PaymentService paymentService, EmailService emailService) {
-		this.paymentService = paymentService;
-		this.emailService = emailService;
-	}
+    public TriggersUnusualSpendingEmail(Moment moment, PaymentService paymentService, Detector detector, SpendingCalculator spendingCalculator, EmailFormatter emailFormatter, EmailService emailService) {
+        this.moment = moment;
+        this.paymentService = paymentService;
+        this.detector = detector;
+        this.spendingCalculator = spendingCalculator;
+        this.emailFormatter = emailFormatter;
+        this.emailService = emailService;
+    }
 
-	public void trigger(long userId) {
-		// TODO: This is the entry point. Start with a test of this class
-	}
+    public void trigger(long userId) {
+        LocalDate now = moment.now();
+        Set<Payment> thisMonthsPayments = paymentService.fetchPayments(userId, now.getYear(), now.getMonthValue());
+        Set<Payment> lastMonthsPayments = paymentService.fetchPayments(userId, now.getYear(), now.minusMonths(1L).getMonthValue());
+        Set<UnusualPayment> unusualPayments = detector.detectUnusualPayments(thisMonthsPayments, lastMonthsPayments);
+        int totalAmountOfUnusualSpending = spendingCalculator.calculateTotalAmountOfUnusualSpending(unusualPayments);
+        String emailBody = emailFormatter.formatBody(unusualPayments);
+        emailService.publish(userId, "Unusual spending of $" + totalAmountOfUnusualSpending + " detected!", emailBody);
+    }
 
 }
 
