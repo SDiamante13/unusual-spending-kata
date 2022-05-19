@@ -13,6 +13,10 @@ public class Payment {
         this.category = category;
     }
 
+    public int price() {
+        return price;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
