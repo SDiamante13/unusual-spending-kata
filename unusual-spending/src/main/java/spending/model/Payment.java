@@ -17,6 +17,10 @@ public class Payment {
         return price;
     }
 
+    public Category category() {
+        return category;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
