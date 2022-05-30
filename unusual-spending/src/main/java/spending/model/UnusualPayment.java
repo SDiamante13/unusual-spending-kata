@@ -15,6 +15,10 @@ public class UnusualPayment {
         return amount;
     }
 
+    public Category category() {
+        return category;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -16,6 +16,8 @@ import static spending.FeatureTest.*;
 
 class TriggersUnusualSpendingEmailTest {
 
+    public static final String SUBJECT = "Unusual spending of $200 detected!";
+
     private final Moment mockMoment = mock(Moment.class);
     private final PaymentService mockPaymentService = mock(PaymentService.class);
     private final Detector mockDetector = mock(Detector.class);
