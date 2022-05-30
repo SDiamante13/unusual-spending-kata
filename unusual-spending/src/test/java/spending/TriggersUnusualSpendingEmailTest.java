@@ -32,7 +32,7 @@ class TriggersUnusualSpendingEmailTest {
                 "\n" +
                 "We have detected unusually high spending on your card in these categories:\n" +
                 "\n" +
-                "* You spent $148 on groceries\n" +
+                "* You spent $200 on groceries\n" +
                 "\n" +
                 "Love,\n" +
                 "\n" +
@@ -53,7 +53,7 @@ class TriggersUnusualSpendingEmailTest {
         when(mockDetector.detectUnusualPayments(thisMonthsPayments, lastMonthsPayments))
                 .thenReturn(unusualPayments);
         when(mockSpendingCalculator.calculateTotalAmountOfUnusualSpending(unusualPayments))
-                .thenReturn(148);
+                .thenReturn(200);
         when(mockEmailFormatter.formatBody(unusualPayments))
                 .thenReturn(expectedEmailBody);
 

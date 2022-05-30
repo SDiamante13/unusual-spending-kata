@@ -11,6 +11,10 @@ public class UnusualPayment {
         this.amount = amount;
     }
 
+    public int amount() {
+        return amount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

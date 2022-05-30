@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 class FeatureTest {
 
     public static final long USER_ID = 123L;
-    public static final String SUBJECT = "Unusual spending of $148 detected!";
+    public static final String SUBJECT = "Unusual spending of $200 detected!";
     public static final int THIS_MONTH = Month.FEBRUARY.getValue();
     public static final int LAST_MONTH = Month.JANUARY.getValue();
     public static final int CURRENT_YEAR = 2022;
@@ -32,7 +32,7 @@ class FeatureTest {
                 "\n" +
                 "We have detected unusually high spending on your card in these categories:\n" +
                 "\n" +
-                "* You spent $148 on groceries\n" +
+                "* You spent $200 on groceries\n" +
                 "\n" +
                 "Love,\n" +
                 "\n" +
